@@ -12,3 +12,10 @@ class CategoryJoin(db.Model):
 
     __table_args__ = (db.Index('product_and_category_associated_only_once',
                                'category_id', 'product_id', unique=True),)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "categoryId": self.category_id,
+            "productId": self. product_id
+        }

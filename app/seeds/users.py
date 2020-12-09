@@ -10,6 +10,8 @@ def seed_users():
                 email='demoadmin@aa.io',
                 password='password',
                 verified=False,
+                address='3390 W 5th St, Yuma, AZ 85364',
+                phone_number='9283042225',
                 admin=True)
 
     db.session.add(demo)
@@ -18,6 +20,8 @@ def seed_users():
                 email='demo1@aa.io',
                 password='password',
                 verified=True,
+                address='2200 S Ave B, Yuma, AZ 85364',
+                phone_number='9283042223',
                 admin=False)
 
     db.session.add(demo)
@@ -26,6 +30,8 @@ def seed_users():
                 email='demo2@aa.io',
                 password='password',
                 verified=False,
+                address='2350 S 8th Ave, Yuma, AZ 85364',
+                phone_number='9283042222',
                 admin=False)
 
     db.session.add(demo)

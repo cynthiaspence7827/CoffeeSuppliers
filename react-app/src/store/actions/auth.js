@@ -1,9 +1,7 @@
-import auth from "../reducers/auth";
-
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
-export const authAction = () => ({ type: AUTHENTICATE_USER });
+export const authAction = user => ({ type: AUTHENTICATE_USER, user });
 export const logoutAction = () => ({ type: LOGOUT_USER });
 
 export const authenticate = () => async dispatch => {

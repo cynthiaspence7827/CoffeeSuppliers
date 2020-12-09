@@ -11,8 +11,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     verified = db.Column(db.Boolean, nullable=False, default=False)
-    address = db.Column(db.Text)
-    phone_number = db.Column(db.String(10))
+    address = db.Column(db.Text, nullable=False)
+    phone_number = db.Column(db.String(10), nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     reviews = db.relationship('Review', backref='users', lazy=True)
     purchases = db.relationship('Purchase', backref='users', lazy=True)
@@ -34,5 +34,9 @@ class User(db.Model, UserMixin):
         return {
             "id": self.id,
             "username": self.username,
-            "email": self.email
+            "email": self.email,
+            "verified": self.verified,
+            "address": self.verified,
+            "phone": self.phone_number,
+            "admin": self.admin
         }

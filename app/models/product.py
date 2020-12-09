@@ -18,3 +18,15 @@ class Product(db.Model):
     reviews = db.relationship('Review', backref='products', lazy=True)
     categories = db.relationship(
         'Category', secondary='category_join', back_populates='products', lazy=True)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "stockQty": self.amount_in_stock,
+            "price": self.price,
+            "images": [self.main_image, self.image2, self.image3, self.image4, self.image5],
+            "reviews": [review.to_dict() for review in self.reviews],
+            "categories": [category.to_dict() for category in self.categories]
+        }

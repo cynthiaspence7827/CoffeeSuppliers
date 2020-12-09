@@ -10,5 +10,9 @@ class OrderItem(db.Model):
         'products.id'), nullable=False)
     purchase_id = db.Column(db.Integer, db.ForeignKey(
         'purchases.id'), nullable=False)
-    db.relationship('Purchase', backref='order_items', lazy=True)
-    db.relationship('Product', backref='order_items', lazy=True)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "productId": self.product_id,
+        }
