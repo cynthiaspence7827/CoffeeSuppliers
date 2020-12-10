@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-// import { authenticate } from "./services/auth";
+import { authenticate } from "./store/actions/auth";
 
 function App() {
-  const authenticated = useSelector(state => !!state.user)
-  // const [loaded, setLoaded] = useState(false);
+  const authenticated = useSelector(state => !!state.user);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const user = await authenticate();
-  //     if (!user.errors) {
-  //       setAuthenticated(true);
-  //     }
-  //     setLoaded(true);
-  //   })();
-  // }, []);
-
-  // if (!loaded) {
-  //   return null;
-  // }
+  useEffect(() => {
+    dispatchEvent(authenticate());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
+      
       <Switch>
         <Route path='/' >
           {authenticated

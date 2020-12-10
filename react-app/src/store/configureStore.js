@@ -8,6 +8,7 @@ import purchases from '../store/reducers/purchases';
 import products from '../store/reducers/products';
 import categories from '../store/reducers/categories';
 import ui from '../store/reducers/ui';
+import cart from '../store/reducers/cart';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +20,8 @@ const reducer = combineReducers({
     purchases,
     products,
     categories,
-    ui
+    ui,
+    cart
 });
 
 const configureStore = (initialState) => {
