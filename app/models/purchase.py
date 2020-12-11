@@ -18,5 +18,5 @@ class Purchase(db.Model):
             "fulfilled": self.fulfilled,
             "address": self.delivery_address,
             "scheduledAt": self.delivery_time,
-            "items": [item.to_dict() for item in self.order_items]
+            "orderItems": [item.to_dict() for item in self.order_items]
         }

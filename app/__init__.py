@@ -11,6 +11,9 @@ from .api.auth_routes import auth_routes
 from .api.review_routes import review_routes
 from .api.product_routes import product_routes
 from .api.category_routes import category_routes
+from .api.category_join_routes import category_join_routes
+from .api.favorite_routes import favorite_routes
+from .api.order_routes import order_routes
 
 from .seeds import seed_commands
 
@@ -35,9 +38,14 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(
-    review_routes, url_prefix='/api/products/<int:product_id>')
+    review_routes, url_prefix='/api/products/<int:product_id>/reviews')
 app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(category_routes, url_prefix='/api/categories')
+app.register_blueprint(category_join_routes,
+                       url_prefix='/api/categories/<int:category_id>/products')
+app.register_blueprint(
+    favorite_routes, url_prefix='/api/users/<int:user_id>/favorites')
+app.register_blueprint(order_routes, url_prefix='/api/orders')
 db.init_app(app)
 Migrate(app, db)
 
