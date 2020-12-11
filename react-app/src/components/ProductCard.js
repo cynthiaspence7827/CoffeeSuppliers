@@ -5,10 +5,14 @@ import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import { setCurrentProduct } from '../store/actions/ui';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Fab from '@material-ui/core/Fab';
+import { toggleFavorite } from '../store/actions/favorites';
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 345
+        maxWidth: 345,
+        position: 'relative'
     },
     nameAndPrice: {
         display: 'flex',
@@ -16,11 +20,18 @@ const useStyles = makeStyles({
     },
     catChip: {
         margin: '0.5em 0.5em 0 0'
+    },
+    favorite: {
+        position: 'absolute',
+        zIndex: 2,
+        top: '0.5em',
+        right: '0.5em'
     }
 })
 
 const ProductCard = (props) => {
     const classes = useStyles();
+    const user = useSelector(state => state.user);
     const ui = useSelector(state => state.ui);
     const products = useSelector(state => state.products.dict);
     const categories = useSelector(state => state.categories.dict);
@@ -30,15 +41,25 @@ const ProductCard = (props) => {
         dispatch(setCurrentProduct(props.product.id));
     }
 
+    const handleFavorite = productId => {
+        dispatch(toggleFavorite(productId));
+    }
+
     return (
         <Card onClick={handleClick} className={classes.root} component={NavLink} to={`/products/${props.product.id}`}>
-            <CardActionArea>
+            <Fab className={classes.favorite}>
+                <FavoriteIcon />
+            </Fab>
+            <CardActionArea >
                 <CardMedia
                     component="img"
                     alt={props.product.name}
                     image={props.product.images[0]}
                     title={props.product.name}
                 />
+                <Fab onClick={() => handleFavorite(props.product.id)} className={classes.favorite}>
+                    <FavoriteIcon />
+                </Fab>
                 <CardContent>
                     <div className={classes.nameAndPrice}>
                         <Typography gutterBottom variant="h5" component="h2">
@@ -48,13 +69,18 @@ const ProductCard = (props) => {
                             {`${props.product.price.toFixed(2)}`}
                         </Typography>
                     </div>
-                    <div>
-                        {props.product.categories.map(cat => (
-                            <Chip className={classes.catChip} label={cat.name} key={`category-${cat.id}`} />
-                        ))}
-                    </div>
                     <Rating precision={0.1} value={props.product.reviews.reduce((acc, el) => acc + el.rating) / props.product.reviews.length} readOnly />
                 </CardContent>
+                <CardActions className={classes.actionArea}>
+                    <div>
+                        {props.product.categories.map(cat => (
+                            <Chip size='small' className={classes.catChip} label={cat.name} key={`category-${cat.id}`} />
+                        ))}
+                    </div>
+                    <div>
+                    </div>
+                </CardActions>
+                {/* </CardContent> */}
             </CardActionArea>
         </Card>
     );
