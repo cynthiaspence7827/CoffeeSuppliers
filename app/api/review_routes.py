@@ -6,7 +6,7 @@ import json
 review_routes = Blueprint('reviews', __name__)
 
 
-@review_routes.route('/user/<int:product_id>', strict_slashes=False)
+@review_routes.route('/products/<int:product_id>', strict_slashes=False)
 def get_product_reviews(product_id):
     reviews = Review.query.filter(Review.product_id == product_id).all()
     return {
@@ -15,7 +15,7 @@ def get_product_reviews(product_id):
     }
 
 
-@review_routes.route('/user/<int:user_id>', strict_slashes=False)
+@review_routes.route('/users/<int:user_id>', strict_slashes=False)
 def get_user_reviews(user_id):
     reviews = Review.query.filter(Review.user_id == user_id).all()
     return {
@@ -47,6 +47,7 @@ def edit_review(id):
 @review_routes.route('/<int:id>', methods=['DELETE'], strict_slashes=False)
 def delete_review(id):
     review = Review.query.filter(Review.id == id).first()
+    this_review = review.to_dict()
     db.session.delete()
     db.session.commit()
-    return {"id": id}
+    return this_review

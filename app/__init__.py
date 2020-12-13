@@ -16,9 +16,6 @@ from .api.favorite_routes import favorite_routes
 from .api.purchase_routes import purchase_routes
 from .api.order_item_routes import order_item_routes
 
-# TODO: Restrict admin only actions to only admin users in all routes
-# TODO: Account for unique constraints in all routes
-
 from .seeds import seed_commands
 
 from .config import Config

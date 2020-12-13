@@ -6,11 +6,11 @@ import json
 category_join_routes = Blueprint('category_join', __name__)
 
 
-@category_join_routes.route('/', methods=['POST'], strict_slashes=False)
-def add_product_to_category(category_id):
+@category_join_routes.route('/<int:product_id>', methods=['POST'], strict_slashes=False)
+def add_product_to_category(category_id, product_id):
     req_data = json.loads(request.data)
     category_join = CategoryJoin(
-        category_id=category_id, product_id=req_data['productId'])
+        category_id=category_id, product_id=product_id)
     db.session.add(category_join)
     db.session.commit()
     return category_join.to_dict()
