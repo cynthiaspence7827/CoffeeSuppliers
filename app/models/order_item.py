@@ -8,6 +8,7 @@ class OrderItem(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey(
         'products.id'), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
     purchase_id = db.Column(db.Integer, db.ForeignKey(
         'purchases.id'), nullable=False)
 
@@ -16,5 +17,6 @@ class OrderItem(db.Model):
             "id": self.id,
             "userId": self.user_id,
             "productId": self.product_id,
+            "qty": self.quantity,
             "purchaseId": self.purchase_id
         }

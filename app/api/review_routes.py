@@ -1,26 +1,52 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
-from app.models import Review, db
+from app.models import Review, Product, db
 import json
 
 review_routes = Blueprint('reviews', __name__)
 
 
-@review_routes.route('/', strict_slashes=False)
-@login_required
-def get_reviews(product_id):
-    """ get all product reviews for a product with id product_id """
-    product_reviews = Review.query.filter(
-        Review.product_id == product_id).all()
-    reviews = {review.id: review.to_dict() for review in product_reviews}
-    ids = [review.id for review in product_reviews]
-    return {'dict': reviews, 'ids': ids}
+@review_routes.route('/user/<int:product_id>', strict_slashes=False)
+def get_product_reviews(product_id):
+    reviews = Review.query.filter(Review.product_id == product_id).all()
+    return {
+        "dict": {review.id: review.to_dict() for review in reviews},
+        "ids": [review.id for review in reviews]
+    }
+
+
+@review_routes.route('/user/<int:user_id>', strict_slashes=False)
+def get_user_reviews(user_id):
+    reviews = Review.query.filter(Review.user_id == user_id).all()
+    return {
+        "dict": {review.id: review.to_dict() for review in reviews},
+        "ids": [review.id for review in reviews]
+    }
+
+
+@review_routes.route('/', methods=['POST'], strict_slashes=False)
+def create_review():
+    req_data = json.loads(request.data)
+    review = Review(user_id=req_data['userId'], product_id=req_data['productId'],
+                    rating=req_data['rating'], review_body=req_data['reviewBody'])
+    db.session.add(review)
+    db.session.commit()
+    return review.to_dict()
+
+
+@review_routes.route('/<int:id>', methods=['PUT'], strict_slashes=False)
+def edit_review(id):
+    req_data = json.loads(request.data)
+    review = Review.query.filter(Review.id == id).first()
+    review.rating = req_data['rating']
+    review.review_body = req_data['reviewBody']
+    db.session.commit()
+    return review.to_dict()
 
 
 @review_routes.route('/<int:id>', methods=['DELETE'], strict_slashes=False)
-@login_required
-def delete_review(product_id, id):
+def delete_review(id):
     review = Review.query.filter(Review.id == id).first()
-    db.session.delete(review)
+    db.session.delete()
     db.session.commit()
-    return {'id': id}
+    return {"id": id}

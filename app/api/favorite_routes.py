@@ -6,10 +6,6 @@ import json
 
 favorite_routes = Blueprint('favorites', __name__)
 
-# TODO: Get all current user's favorite products
-# TODO: Favorite a product
-# TODO: Unfavorite a product
-
 
 @favorite_routes.route('/', strict_slashes=False)
 def get_user_favorites(user_id):

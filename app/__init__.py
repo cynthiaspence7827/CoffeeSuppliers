@@ -13,7 +13,8 @@ from .api.product_routes import product_routes
 from .api.category_routes import category_routes
 from .api.category_join_routes import category_join_routes
 from .api.favorite_routes import favorite_routes
-from .api.order_routes import order_routes
+from .api.purchase_routes import purchase_routes
+from .api.order_item_routes import order_item_routes
 
 # TODO: Restrict admin only actions to only admin users in all routes
 # TODO: Account for unique constraints in all routes
@@ -43,11 +44,12 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
 app.register_blueprint(product_routes, url_prefix='/api/products')
 app.register_blueprint(category_routes, url_prefix='/api/categories')
-app.register_blueprint(order_routes, url_prefix='/api/orders')
 app.register_blueprint(category_join_routes,
                        url_prefix='/api/categories/<int:category_id>/products')
 app.register_blueprint(
     favorite_routes, url_prefix='/api/users/<int:user_id>/favorites')
+app.register_blueprint(purchase_routes, url_prefix='/api/purchases')
+app.register_blueprint(order_item_routes, url_prefix='/api/order-items')
 db.init_app(app)
 Migrate(app, db)
 
