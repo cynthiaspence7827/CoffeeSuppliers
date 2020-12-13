@@ -6,18 +6,9 @@ import json
 review_routes = Blueprint('reviews', __name__)
 
 
-@review_routes.route('/products/<int:product_id>', strict_slashes=False)
-def get_product_reviews(product_id):
-    reviews = Review.query.filter(Review.product_id == product_id).all()
-    return {
-        "dict": {review.id: review.to_dict() for review in reviews},
-        "ids": [review.id for review in reviews]
-    }
-
-
-@review_routes.route('/users/<int:user_id>', strict_slashes=False)
-def get_user_reviews(user_id):
-    reviews = Review.query.filter(Review.user_id == user_id).all()
+@review_routes.route('/', strict_slashes=False)
+def get_all_reviews():
+    reviews = Review.query.all()
     return {
         "dict": {review.id: review.to_dict() for review in reviews},
         "ids": [review.id for review in reviews]
