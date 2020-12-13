@@ -1,4 +1,13 @@
-import { SET_ALL_PRODUCTS, EDIT_PRODUCT, ADD_PRODUCT, DELETE_PRODUCT } from "../actions/products";
+import {
+    SET_ALL_PRODUCTS,
+    EDIT_PRODUCT,
+    ADD_PRODUCT,
+    DELETE_PRODUCT
+} from "../actions/products";
+import {
+    ADD_PRODUCT_TO_CATEGORY,
+    REMOVE_PRODUCT_FROM_CATEGORY
+} from '../actions/categories';
 
 const initialState = {
     dict: {},
@@ -21,6 +30,11 @@ export default function reducer(state = initialState, action) {
         case DELETE_PRODUCT:
             delete newState.dict[action.productId];
             newState.ids.filter(id => id !== action.productId);
+            return newState;
+        case ADD_PRODUCT_TO_CATEGORY:
+            newState.dict[action.productId].categories[action.category.id] = newState.category;
+        case REMOVE_PRODUCT_FROM_CATEGORY:
+            delete newState.dict[action.productId].categories[action.categoryId];
             return newState;
         default:
             return state;

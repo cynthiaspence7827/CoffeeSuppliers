@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from sqlalchemy import and_
-from app.models import CategoryJoin, db
+from app.models import CategoryJoin, Category, db
 import json
 
 category_join_routes = Blueprint('category_join', __name__)
@@ -13,7 +13,8 @@ def add_product_to_category(category_id, product_id):
         category_id=category_id, product_id=product_id)
     db.session.add(category_join)
     db.session.commit()
-    return category_join.to_dict()
+    category = Category.query.filter(Category.id == category_id).first()
+    return category.to_dict()
 
 
 @category_join_routes.route('/<int:product_id>', methods=['DELETE'], strict_slashes=False)

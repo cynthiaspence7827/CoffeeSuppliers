@@ -4,17 +4,13 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const EDIT_CATEGORY = 'EDIT_CATEGORY';
 export const ADD_PRODUCT_TO_CATEGORY = 'ADD_PRODUCT_TO_CATEGORY';
 export const REMOVE_PRODUCT_FROM_CATEGORY = 'REMOVE_PRODUCT_FROM_CATEGORY';
-export const ADD_CATEGORY_TO_PRODUCT = 'ADD_PRODUCT_TO_CATEGORY';
-export const REMOVE_CATEGORY_FROM_PRODUCT = 'REMOVE_CATEGORY_FROM_PRODUCT';
 
 export const setCategories = categories => ({ type: SET_CATEGORIES, categories });
 export const addCategory = category => ({ type: ADD_CATEGORY, category });
 export const deleteCategory = categoryId => ({ type: DELETE_CATEGORY, categoryId });
 export const editCategory = category => ({ type: EDIT_CATEGORY, category });
-export const addProductToCategory = productId => ({ type: ADD_PRODUCT_TO_CATEGORY, productId });
-export const removeProductFromCategory = productId => ({ type: REMOVE_PRODUCT_FROM_CATEGORY, productId });
-export const addCategoryToProduct = categoryId => ({ type: ADD_PRODUCT_TO_CATEGORY, categoryId });
-export const removeCategoryFromProduct = categoryId => ({ type: REMOVE_CATEGORY_FROM_PRODUCT, categoryId });
+export const addProductToCategory = (productId, category) => ({ type: ADD_PRODUCT_TO_CATEGORY, productId, category });
+export const removeProductFromCategory = (productId, categoryId) => ({ type: REMOVE_PRODUCT_FROM_CATEGORY, productId, categoryId });
 
 export const setCategoriesThunk = () => async dispatch => {
     let categories = await fetch('/api/categories');
@@ -68,8 +64,7 @@ export const addProductToCategoryThunk = (productId, categoryId) => async dispat
     });
     if (join.ok) {
         join = await join.json();
-        dispatch(addProductToCategory(productId));
-        dispatch(addCategoryToProduct(categoryId));
+        dispatch(addProductToCategory(productId, category));
     }
 };
 
@@ -79,7 +74,6 @@ export const removeProductFromCategoryThunk = (productId, categoryId) => async d
     });
     if (deletedJoin.ok) {
         deletedJoin = deletedJoin.json();
-        dispatch(removeProductFromCategory(productId));
-        dispatch(removeCategoryFromProduct(categoryId));
+        dispatch(removeProductFromCategory(productId, categoryId));
     }
 };

@@ -27,6 +27,6 @@ class Product(db.Model):
             "stockQty": self.amount_in_stock,
             "price": self.price,
             "images": [self.main_image, self.image2, self.image3, self.image4, self.image5],
-            "reviews": [review.to_dict() for review in self.reviews],
-            "categories": [category.to_dict() for category in self.categories]
+            "reviews": {review.id: review.to_dict() for review in self.reviews},
+            "categories": {category.id: category.to_dict() for category in self.categories}
         }
