@@ -18,7 +18,7 @@ export const addReviewThunk = review => async dispatch => {
     });
     if (newReview.ok) {
         newReview = await newReview.json();
-        dispatch(addReview(newReview));
+        await dispatch(addReview(newReview));
     }
 };
 
@@ -28,7 +28,7 @@ export const removeReviewThunk = reviewId => async dispatch => {
     });
     if (review.ok) {
         review = await review.json();
-        dispatch(removeReview(review));
+        await dispatch(removeReview(review));
     }
 };
 
@@ -42,14 +42,14 @@ export const editReviewThunk = review => async dispatch => {
     });
     if (editedReview.ok) {
         editedReview = await editedReview.json();
-        dispatch(editReview(editedReview));
+        await dispatch(editReview(editedReview));
     }
 };
 
-export const getAllReviews = () => {
+export const getAllReviewsThunk = () => {
     let reviews = await fetch(`/api/reviews`);
     if (reviews.ok) {
         reviews = await reviews.json();
-        dispatch(getAllReviews(reviews));
+        await dispatch(getAllReviews(reviews));
     }
 }

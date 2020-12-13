@@ -12,7 +12,7 @@ export const setProductsThunk = () => async dispatch => {
     let products = await fetch('/api/products/all');
     if (products.ok) {
         products = await products.json();
-        dispatch(setProducts(products));
+        await dispatch(setProducts(products));
     }
 };
 
@@ -26,7 +26,7 @@ export const editProductThunk = product => async dispatch => {
     });
     if (editedProduct.ok) {
         editedProduct = await editedProduct.json();
-        dispatch(editProduct(editedProduct));
+        await dispatch(editProduct(editedProduct));
     }
 };
 
@@ -40,7 +40,7 @@ export const addProductThunk = product => async dispatch => {
     });
     if (newProduct.ok) {
         newProduct = await newProduct.json();
-        dispatch(addProduct(newProduct));
+        await dispatch(addProduct(newProduct));
     }
 };
 
@@ -50,6 +50,6 @@ export const deleteProductThunk = productId => async dispatch => {
     });
     if (product.ok) {
         product = await product.json();
-        dispatch(deleteProduct(product));
+        await dispatch(deleteProduct(product));
     }
 };

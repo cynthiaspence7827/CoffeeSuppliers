@@ -16,7 +16,7 @@ export const setCategoriesThunk = () => async dispatch => {
     let categories = await fetch('/api/categories');
     if (categories.ok) {
         categories = await categories.json();
-        dispatch(setCategories(categories));
+        await dispatch(setCategories(categories));
     }
 };
 
@@ -30,7 +30,7 @@ export const addCategoryThunk = category => async dispatch => {
     });
     if (category.ok) {
         category = await category.json();
-        dispatch(addCategory(category));
+        await dispatch(addCategory(category));
     }
 };
 
@@ -40,7 +40,7 @@ export const deleteCategoryThunk = categoryId => async dispatch => {
     });
     if (deletedCategory.ok) {
         deletedCategory = await deletedCategory.json();
-        dispatch(deleteCategory(deletedCategory.id));
+        await dispatch(deleteCategory(deletedCategory.id));
     }
 };
 
@@ -54,7 +54,7 @@ export const editCategoryThunk = category => async dispatch => {
     });
     if (editedCategory.ok) {
         editedCategory = await editedCategory.json();
-        dispatch(editCategory(editedCategory));
+        await dispatch(editCategory(editedCategory));
     }
 };
 
@@ -64,7 +64,7 @@ export const addProductToCategoryThunk = (productId, categoryId) => async dispat
     });
     if (join.ok) {
         join = await join.json();
-        dispatch(addProductToCategory(productId, category));
+        await dispatch(addProductToCategory(productId, category));
     }
 };
 
@@ -74,6 +74,6 @@ export const removeProductFromCategoryThunk = (productId, categoryId) => async d
     });
     if (deletedJoin.ok) {
         deletedJoin = deletedJoin.json();
-        dispatch(removeProductFromCategory(productId, categoryId));
+        await dispatch(removeProductFromCategory(productId, categoryId));
     }
 };
