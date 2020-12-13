@@ -1,15 +1,17 @@
-import { TOGGLE_FAVORITE } from '../actions/favorites';
+import { ADD_FAVORITE, REMOVE_FAVORITE, SET_FAVORITES } from '../actions/favorites';
 
 export default function reducer(state = [], action) {
     let newState = state;
 
     switch (action.type) {
-        case TOGGLE_FAVORITE:
-            if (newState.includes(action.productId)) {
-                newState = newState.filter(el => el !== action.productId);
-            } else {
-                newState.push(action.productId);
-            }
+        case ADD_FAVORITE:
+            newState.push(action.productId);
+            return newState;
+        case REMOVE_FAVORITE:
+            newState = newState.filter(fav => fav !== action.productId);
+            return newState;
+        case SET_FAVORITES:
+            newState = action.favoriteIds;
             return newState;
         default:
             return state;
