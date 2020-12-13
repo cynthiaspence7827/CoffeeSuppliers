@@ -10,7 +10,7 @@ favorite_routes = Blueprint('favorites', __name__)
 @favorite_routes.route('/', strict_slashes=False)
 def get_user_favorites(user_id):
     user_favorites = Favorite.query.filter(Favorite.user_id == user_id).all()
-    return {"ids": [favorite.to_dict() for favorite in user_favorites], "dict": {favorite.id: favorite.to_dict() for favorite in user_favorites}}
+    return {"ids": [favorite.to_dict() for favorite in user_favorites]}
 
 
 @favorite_routes.route('/', methods=['POST'], strict_slashes=False)
