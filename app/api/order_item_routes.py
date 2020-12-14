@@ -29,10 +29,7 @@ def change_item_qty(item_id):
     req_data = json.loads(request.data)
     order_item = OrderItem.query.filter(
         OrderItem.id == item_id).first()
-    prev_qty = order_item.quantity
     order_item.quantity = req_data['qty']
-    product = Product.query.filter(Product.id == req_data['productId']).first()
-    product.quantity -= (order_item.quantity + prev_qty)
     db.session.commit()
     return order_item.to_dict()
 
@@ -41,9 +38,16 @@ def change_item_qty(item_id):
 def remove_order_item(item_id):
     req_data = json.loads(request.data)
     order_item = OrderItem.query.filter(OrderItem.id == item_id).first()
-    qty = order_item.quantity
-    product = Product.query.filter(Product.id == order_item.product_id).first()
-    product.quantity += qty
     db.session.delete(order_item)
     db.session.commit()
     return {"id": item_id}
+
+
+@order_item_routes.route('/clear-current/<int:purchase_id>', methods=['DELETE'], strict_slashes=False)
+def remove_all_order_items(purchase_id):
+    order_items = OrderItem.query.filter(
+        OrderItem.purchase_id == purchase_id).all()
+    for item in order_items:
+        db.session.delete(item)
+        db.session.commit()
+    return {"id": purchase_id}

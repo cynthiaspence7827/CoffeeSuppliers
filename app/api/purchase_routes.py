@@ -1,8 +1,17 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import OrderItem, Product, Purchase, db
+from sqlalchemy import and_
 import json
 
 purchase_routes = Blueprint('purchases', __name__)
+
+
+@purchase_routes.route('/users/<int:user_id>/not-ordered', strict_slashes=False)
+def get_oder_not_placed(user_id):
+    purchase = Purchase.query.filter(
+        and_(Purchase.order_placed == False, Purchase.user_id == user_id)).first()
+    items = OrderItem.query.filter(OrderItem.purchase_id == id).all()
+    return {"purchaseId": purchase.id, "orderItems": items.values()}
 
 
 @purchase_routes.route('/fulfilled', strict_slashes=False)

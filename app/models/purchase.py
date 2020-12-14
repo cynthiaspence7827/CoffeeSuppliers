@@ -15,8 +15,8 @@ class Purchase(db.Model):
         return {
             "id": self.id,
             "userId": self.user_id,
+            "ordered": self.order_placed,
             "fulfilled": self.fulfilled,
             "address": self.delivery_address,
-            "scheduledAt": self.delivery_time,
             "orderItems": {item.id: item.to_dict() for item in self.order_items}
         }

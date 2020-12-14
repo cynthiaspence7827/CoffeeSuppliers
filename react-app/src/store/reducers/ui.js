@@ -1,4 +1,11 @@
-import { SET_CURRENT_CATEGORY, SET_CURRENT_PRODUCT, OPEN_SIGN_IN, OPEN_SIGN_UP, CLOSE_AUTH_DIALOG, REMOVE_CURRENT_CATEGORY } from "../actions/ui";
+import { 
+    SET_CURRENT_CATEGORY, 
+    SET_CURRENT_PRODUCT, 
+    OPEN_SIGN_IN, 
+    OPEN_SIGN_UP, 
+    CLOSE_AUTH_DIALOG, 
+    REMOVE_CURRENT_CATEGORY 
+} from "../actions/ui";
 
 const initialState = {
     signInOpen: false,
