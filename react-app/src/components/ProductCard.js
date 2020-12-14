@@ -29,6 +29,7 @@ const useStyles = makeStyles({
     }
 })
 
+// TODO: Test - make sure this actually looks and functions right
 const ProductCard = (props) => {
     const classes = useStyles();
     const user = useSelector(state => state.user);

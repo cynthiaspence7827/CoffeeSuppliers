@@ -46,7 +46,7 @@ export const editReviewThunk = review => async dispatch => {
     }
 };
 
-export const getAllReviewsThunk = () => {
+export const getAllReviewsThunk = () => async dispatch => {
     let reviews = await fetch(`/api/reviews`);
     if (reviews.ok) {
         reviews = await reviews.json();

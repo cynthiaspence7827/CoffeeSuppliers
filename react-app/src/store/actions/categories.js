@@ -64,7 +64,7 @@ export const addProductToCategoryThunk = (productId, categoryId) => async dispat
     });
     if (join.ok) {
         join = await join.json();
-        await dispatch(addProductToCategory(productId, category));
+        await dispatch(addProductToCategory(productId, categoryId));
     }
 };
 

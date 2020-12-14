@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import React from 'react';
 import { closeAuthDialog, openSignUp } from '../store/actions/ui';
 
+// TODO : set anchor ref, pass through props if possible
 const LoginForm = (props) => {
     const ui = useSelector(state => state.ui);
     const [email, setEmail] = useState('demo1@aa.io');

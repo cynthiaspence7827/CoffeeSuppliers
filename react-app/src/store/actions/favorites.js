@@ -22,7 +22,7 @@ export const addFavoriteThunk = (userId, productId) => async dispatch => {
     }
 };
 
-export const removeFavoriteThunk = (userId, productId) => async disptach => {
+export const removeFavoriteThunk = (userId, productId) => async dispatch => {
     let favorite = await fetch(`/api/users/${userId}/favorites`, {
         method: 'DELETE',
         headers: {

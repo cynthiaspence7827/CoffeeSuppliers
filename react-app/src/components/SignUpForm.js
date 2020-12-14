@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { closeAuthDialog, openSignIn } from '../store/actions/ui';
 
+// TODO : set anchor ref, pass through props if possible
 const SignUpForm = (props) => {
     const dispatch = useDispatch();
     const [username, setUsername] = useState('');

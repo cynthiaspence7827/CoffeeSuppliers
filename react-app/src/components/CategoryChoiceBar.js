@@ -29,6 +29,7 @@ const CategoryChoiceBar = (props) => {
         dispatch(setCurrentCategory(id));
     }
 
+    // TODO : Change Paper to Chip and use Pagination to view ones that don't fit
     return (
         <div className={classes.root}>
             {categories.ids.map(id => (

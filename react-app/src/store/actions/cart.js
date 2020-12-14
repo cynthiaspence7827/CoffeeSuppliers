@@ -6,14 +6,14 @@ export const IMPORT_CART = 'IMPORT_CART';
 export const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER';
 export const PLACE_ORDER = 'PLACE_ORDER';
 
-export const addToCart = item => ({ type: ADD_TO_CART, product });
-export const removeFromCart = itemId => ({ type: REMOVE_FROM_CART, productId });
+export const addToCart = item => ({ type: ADD_TO_CART, item });
+export const removeFromCart = itemId => ({ type: REMOVE_FROM_CART, itemId });
 export const clearCart = () => ({ type: CLEAR_CART });
 export const updateCartItem = updatedItem => ({ type: UPDATE_CART_ITEM, updatedItem });
 export const importCart = cartItems => ({ type: IMPORT_CART, cartItems });
 export const setCurrentOrder = purchaseId => ({ type: SET_CURRENT_ORDER, purchaseId });
 
-export const importCart = userId => async dispatch => {
+export const importCartThunk = userId => async dispatch => {
     let cartItems = await fetch(`/api/purchases/users/${userId}/not-ordered`);
     if (cartItems.ok) {
         cartItems = await cartItems.json();

@@ -1,13 +1,13 @@
+import { clearFavorites, setFavoritesThunk } from './favorites';
+import { setProductsThunk } from './products';
+import { setCategoriesThunk } from './categories';
+import { getAllReviewsThunk } from './reviews';
+
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const authAction = user => ({ type: AUTHENTICATE_USER, user });
 export const logoutAction = () => ({ type: LOGOUT_USER });
-
-import { clearFavorites, setFavoritesThunk } from './favorites';
-import { setProductsThunk } from './products';
-import { setCategoriesThunk } from './categories';
-import { getAllReviewsThunk } from './reviews';
 
 export const authenticate = () => async dispatch => {
   let user = await fetch('/api/auth/', {
@@ -16,13 +16,13 @@ export const authenticate = () => async dispatch => {
     }
   });
   if (user.ok) {
-    user = await response.json();
-    await dispatch(authAction(data));
+    user = await user.json();
+    await dispatch(authAction(user));
     await dispatch(setFavoritesThunk(user.id));
   }
 }
 
-export const login = async (email, password) => {
+export const login = (email, password) => async dispatch => {
   let user = await fetch('/api/auth/login', {
     method: 'POST',
     headers: {
@@ -47,14 +47,13 @@ export const logout = () => async dispatch => {
     }
   });
   if (response.ok) {
-    const data = await response.json();
     await dispatch(logoutAction());
     await dispatch(clearFavorites());
   }
 };
 
 
-export const signUp = async (username, email, password) => {
+export const signUp = (username, email, password) => async dispatch => {
   let user = await fetch("/api/auth/signup", {
     method: "POST",
     headers: {

@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action) {
             newState.dict[action.category.id] = action.category;
             return newState;
         case ADD_PRODUCT_TO_CATEGORY:
-            newState.dict[action.category.id].productIds.push(productId);
+            newState.dict[action.categoryId].productIds.push(action.productId);
             return newState;
         case REMOVE_PRODUCT_FROM_CATEGORY:
             newState.dict[action.categoryId].productIds = newState.dict[action.categoryId].productIds.filter(id => id !== action.productId);

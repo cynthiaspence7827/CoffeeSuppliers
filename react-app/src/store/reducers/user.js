@@ -1,7 +1,6 @@
 import { AUTHENTICATE_USER, LOGOUT_USER } from '../actions/auth';
 
 export default function reducer(state = null, action) {
-    let newState = { ...state };
 
     switch (action.type) {
         case AUTHENTICATE_USER:

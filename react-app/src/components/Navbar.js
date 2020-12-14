@@ -1,4 +1,4 @@
-import { Badge, Button } from '@material-ui/core';
+import { Badge, Button, IconButton } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -12,32 +12,20 @@ const Navbar = (props) => {
 
     return (
         <div>
-            <Button startIcon={<img src='favicon.ico' alt='coffee suppliers logo' />}>
+            {/* <IconButton startIcon={<ShoppingCartIcon />}>
                 Coffee Suppliers
+            </IconButton> */}
+            <Button>
+                <Badge badgeContent={Object.keys(cart).length}>
+                    <ShoppingCartIcon />
+                </Badge>
             </Button>
-            {user
-                ? <>
-
-                </>
-                : (user.admin)
-                    ? <>
-
-                    </>
-                    : <>
-                        <Button>
-                            <Badge badgeContent={Object.keys(cart).length}>
-                                <ShoppingCartIcon />
-                            </Badge>
-                        </Button>
-                        <Button>
-                            Sign In
-                        </Button>
-                        <Button>
-                            Sign Up
-                        </Button>
-                    </>
-            }
-
+            <Button>
+                Sign In
+            </Button>
+            <Button>
+                Sign Up
+            </Button>
         </div>
     );
 }

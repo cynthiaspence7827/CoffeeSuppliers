@@ -7,6 +7,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import StoreRoundedIcon from '@material-ui/icons/StoreRounded';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 
+// TODO : Set anchor ref - pass through props if possible
 const UserOptions = (props) => {
 
     const handleLogout = e => {
