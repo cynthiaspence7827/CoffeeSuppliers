@@ -2,9 +2,7 @@ import { Badge, Button, IconButton } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import FreeBreakfastIcon from '@material-ui/icons/FreeBreakfast';
 
 const Navbar = (props) => {
     const user = useSelector(state => state.user);
@@ -12,9 +10,9 @@ const Navbar = (props) => {
 
     return (
         <div>
-            {/* <IconButton startIcon={<ShoppingCartIcon />}>
+            <IconButton startIcon={<FreeBreakfastIcon />}>
                 Coffee Suppliers
-            </IconButton> */}
+            </IconButton>
             <Button>
                 <Badge badgeContent={Object.keys(cart).length}>
                     <ShoppingCartIcon />

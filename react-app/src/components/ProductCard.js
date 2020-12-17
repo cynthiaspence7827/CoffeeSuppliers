@@ -7,7 +7,8 @@ import { NavLink } from 'react-router-dom';
 import { setCurrentProduct } from '../store/actions/ui';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Fab from '@material-ui/core/Fab';
-import { toggleFavorite } from '../store/actions/favorites';
+import { addFavoriteThunk } from '../store/actions/favorites';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles({
     root: {
@@ -33,9 +34,8 @@ const useStyles = makeStyles({
 const ProductCard = (props) => {
     const classes = useStyles();
     const user = useSelector(state => state.user);
-    const ui = useSelector(state => state.ui);
-    const products = useSelector(state => state.products.dict);
     const categories = useSelector(state => state.categories.dict);
+    const favorites = useSelector(state => state.favorites);
     const dispatch = useDispatch();
 
     const handleClick = e => {
@@ -43,13 +43,13 @@ const ProductCard = (props) => {
     }
 
     const handleFavorite = productId => {
-        dispatch(toggleFavorite(productId));
+        dispatch(addFavoriteThunk(productId));
     }
 
     return (
         <Card onClick={handleClick} className={classes.root} component={NavLink} to={`/products/${props.product.id}`}>
             <Fab className={classes.favorite}>
-                <FavoriteIcon />
+                {favorites.includes(props.product.id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
             </Fab>
             <CardActionArea >
                 <CardMedia
@@ -58,9 +58,10 @@ const ProductCard = (props) => {
                     image={props.product.images[0]}
                     title={props.product.name}
                 />
-                <Fab onClick={() => handleFavorite(props.product.id)} className={classes.favorite}>
-                    <FavoriteIcon />
-                </Fab>
+                {user
+                    ? <Fab onClick={() => handleFavorite(props.product.id)} className={classes.favorite}>
+                        <FavoriteIcon />
+                    </Fab> : ''}
                 <CardContent>
                     <div className={classes.nameAndPrice}>
                         <Typography gutterBottom variant="h5" component="h2">
