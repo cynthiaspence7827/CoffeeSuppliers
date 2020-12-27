@@ -20,8 +20,10 @@ const reducer = combineReducers({
     cart
 });
 
-const configureStore = (initialState) => {
-    return createStore(reducer, initialState, composeEnhancers(applyMiddleware(thunk)));
-};
-
-export default configureStore;
+export const configureStore = initialState => {
+    return createStore(
+        reducer,
+        initialState,
+        composeEnhancers(applyMiddleware(thunk))
+    );
+}
