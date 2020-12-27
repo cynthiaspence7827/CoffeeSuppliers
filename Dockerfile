@@ -1,7 +1,7 @@
 FROM node:12 AS build-stage
 
 WORKDIR /react-app
-COPY react-app/. .
+COPY coffee-app/. .
 
 # You have to set this because it should be set during build time.
 ENV REACT_APP_BASE_URL=<Your REACT_APP_BASE_URL here>
